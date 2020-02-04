@@ -18,4 +18,11 @@ class BoardTest < Minitest::Test
     refute @board.valid_coordinate?("E1")
     refute @board.valid_coordinate?("A22")
   end
+
+  def test_board_can_check_valid_placement
+  refute @board.valid_placement?(cruiser, ["A1", "A2"])
+  refute @board.valid_placement?(submarine, ["A2", "A3", "A4"])
+  assert @board.valid_placement?(submarine, ["A1", "A2"])
+  assert @board.valid_placement?(cruiser, ["B1", "C1", "D1"])
+  end
 end
