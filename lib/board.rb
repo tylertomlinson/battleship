@@ -25,4 +25,18 @@ class Board
   def valid_coordinate?(coordinate)
     @cells.key?(coordinate)
   end
+
+  def valid_placement?
+    #coordinates = ship.length
+    #helper methods for consecutive and diagonal
+    #break hash in numbers array and letters array
+    #
+  end
+
+  def consecutive_numbers
+  end
+
+  def consecutive_letters
+  end
+
 end
