@@ -21,8 +21,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_board_can_check_valid_coordinate
-    skip
-    assert @board.valid_coordinate("A1")
+    assert @board.valid_coordinate?("A1")
     assert @board.valid_coordinate?("D4")
     refute @board.valid_coordinate?("A5")
     refute @board.valid_coordinate?("E1")
