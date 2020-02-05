@@ -27,12 +27,17 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    coordinates.length == ship.length
+    appropriate_length?(ship, coordinates)
+
 
     #helper methods for consecutive and diagonal
     #break hash in numbers array and letters array
     #uniq numbers via ordinal values
 
+  end
+
+  def appropriate_length?(ship, coordinates)
+    coordinates.length == ship.length
   end
 
   # def consecutive_numbers(coordinates)
