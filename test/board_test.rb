@@ -40,6 +40,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_coordinates_are_consecutive
+    skip
     assert @board.consecutive?(["A1", "B1"])
     refute @board.consecutive?(["A1", "A2", "A4"])
   end
@@ -48,7 +49,7 @@ class BoardTest < Minitest::Test
 #-----------------------------------------------------------------------------
 
   def test_board_can_check_valid_placement
-    skip
+
     refute @board.valid_placement?(@cruiser, ["A1", "A2"])
     refute @board.valid_placement?(@submarine, ["A2", "A3", "A4"])
     assert @board.valid_placement?(@submarine, ["A1", "A2"])
@@ -57,10 +58,10 @@ class BoardTest < Minitest::Test
 
   def test_board_can_check_if_valid_placement_is_consecutive
     skip
-    refute @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])
-    refute @board.valid_placement?(@submarine, ["A1", "C1"])
-    refute @board.valid_placement?(@cruiser, ["A3", "A2", "A1"])
-    refute @board.valid_placement?(@submarine, ["C1", "B1"])
+    refute @board.consecutive?(["A1", "A2", "A4"])
+    refute @board.consecutive?(["A1", "C1"])
+    refute @board.consecutive?(["A3", "A2", "A1"])
+    refute @board.consecutive?(["C1", "B1"])
   end
 
   def test_board_can_check_valid_placement_is_not_diagonal

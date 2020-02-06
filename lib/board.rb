@@ -26,11 +26,13 @@ class Board
     @cells.key?(coordinate)
   end
 
-  def valid_placement?(ship, coordinates)(["A1","B1","C1"])
+  def valid_placement?(ship, coordinates)
+    #appropriate_length?(ship, coordinates) && consecutive?(coordinates)
+    if consecutive?(coordinates) && letter_ordinates(coordinates)
+      true
+    end
 
-    xy = @cells.to_a.map {|x| x[0]}
-    xy
-    # require "pry"; binding.pry
+
   end
 
   def letter_ordinates(coordinates)
@@ -40,7 +42,7 @@ class Board
   def consecutive?(coordinates)
     letter_ordinates(coordinates).sort.each_cons(2).all? do |letter, number|
       require "pry"; binding.pry
-      letter == number - 1
+      letter == (number - 1)
     end
   end
 
