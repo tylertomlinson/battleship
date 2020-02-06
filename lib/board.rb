@@ -26,25 +26,29 @@ class Board
     @cells.key?(coordinate)
   end
 
-  def valid_placement?(ship, coordinates)
-    appropriate_length?(ship, coordinates)
+  def valid_placement?(ship, coordinates)(["A1","B1","C1"])
 
+    xy = @cells.to_a.map {|x| x[0]}
+    xy
+    # require "pry"; binding.pry
+  end
 
-    #helper methods for consecutive and diagonal
-    #break hash in numbers array and letters array
-    #uniq numbers via ordinal values
+  def letter_ordinates(coordinates)
+    coordinates.map {|coordinate| coordinate[0].ord}
+  end
 
+  def consecutive?(coordinates)
+    letter_ordinates(coordinates).sort.each_cons(2).all? do |letter, number|
+      require "pry"; binding.pry
+      letter == number - 1
+    end
   end
 
   def appropriate_length?(ship, coordinates)
     coordinates.length == ship.length
   end
 
-  # def consecutive_numbers(coordinates)
-  #   # coordinates.map {|coordinate|}
-  # end
-  #
-  # def consecutive_letters
-  # end
-
+  def place(ship, coordinates)
+    coordinates.each {|coordinate| @cells[coordinate].place_ship(ship)}
+  end
 end
