@@ -4,7 +4,7 @@ require './lib/cell'
 require './lib/board'
 
 class BoardTest < Minitest::Test
-  
+
   def setup
     @board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
@@ -31,10 +31,6 @@ class BoardTest < Minitest::Test
   def test_ship_length_is_the_same_as_input_coordinates
     assert_equal true, @board.appropriate_length?(@submarine, ["A1", "A2"])
     assert_equal false, @board.appropriate_length?(@cruiser, ["B1", "B2", "C3", "D4"])
-  end
-
-  def test_letters_can_be_converted_to_ordinal_numbers
-    assert_equal [66,67,68], @board.letter_ordinates(["B1", "C1", "D1"])
   end
 
   def test_coordinates_are_consecutive

@@ -49,15 +49,15 @@ class Board
   def number_coordinates(coordinates)
     coordinates.map(&:chars).map {|coordinate| coordinate[1].to_i}
   end
-  
+
   def consecutive_letter_coordinates?(coordinates)
-    letter_coordinates(coordinates).uniq.size == 1 &&
-    number_coordinates(coordinates).each_cons(2).all? { |number1, number2| number2 == (number1 + 1) }
+    number_coordinates(coordinates).uniq.size == 1 &&
+    letter_coordinates(coordinates).map { |letter| letter.ord }.each_cons(2).all? { |number1, number2| number2 == (number1 + 1) }
   end
 
   def consecutive_number_coordinates?(coordinates)
-    number_coordinates(coordinates).uniq.size == 1 &&
-    letter_coordinates(coordinates).map { |letter| letter.ord }.each_cons(2).all? { |number1, number2| number2 == (number1 + 1) }
+    letter_coordinates(coordinates).uniq.size == 1 &&
+    number_coordinates(coordinates).each_cons(2).all? { |number1, number2| number2 == (number1 + 1) }
   end
 
   def place(ship, coordinates)
