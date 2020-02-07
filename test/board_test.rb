@@ -37,22 +37,31 @@ class BoardTest < Minitest::Test
     # assert @board.valid_placement?(@cruiser, ["B1", "C1", "D1"])
   end
 
+  def test_consecutive_numbers_works
+    @board.consecutive_numbers(["A1", "A2", "A3"])
+    assert_equal [1,2,3], @board.consecutive_numbers(["A1", "A2", "A3"])
+    @board.consecutive_numbers(["A1", "A2", "A4"])
+    assert_equal [1,2,4], @board.consecutive_numbers(["A1", "A2", "A4"])
+
+  end
+
   def test_board_can_check_if_valid_placement_is_consecutive
     skip
-    refute @board.valid_placement?(cruiser, ["A1", "A2", "A4"])
-    refute @board.valid_placement?(submarine, ["A1", "C1"])
-    refute @board.valid_placement?(cruiser, ["A3", "A2", "A1"])
-    refute @board.valid_placement?(submarine, ["C1", "B1"])
+    refute @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])
+    refute @board.valid_placement?(@submarine, ["A1", "C1"])
+    refute @board.valid_placement?(@cruiser, ["A3", "A2", "A1"])
+    refute @board.valid_placement?(@submarine, ["C1", "B1"])
   end
 
   def test_board_can_check_valid_placement_is_not_diagonal
     skip
-    refute @board.valid_placement?(cruiser, ["A1", "B2", "C3"])
-    refute @board.valid_placement?(submarine, ["C2", "D3"])
+    refute @board.valid_placement?(@cruiser, ["A1", "B2", "C3"])
+    refute @board.valid_placement?(@submarine, ["C2", "D3"])
   end
 
   def test_board_can_be_rendered
-    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", @board.render
+    skip
+    # assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", @board.render
     assert_equal "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n", @board.render(true)
   end
 end
