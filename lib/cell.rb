@@ -28,9 +28,9 @@ class Cell
 
   def render(show_ship = false)
     return 'M' if @fired_upon == true && empty?
-    return 'S' if @fired_upon == false && show_ship == true
     return 'X' if @fired_upon == true && @ship.health < 1
     return 'H' if @fired_upon == true && !empty?
+    return 'S' if show_ship == true && !empty?
     return '.'
   end
 end

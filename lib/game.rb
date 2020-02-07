@@ -3,12 +3,17 @@ require './lib/ship'
 require './lib/cell'
 
 class Game
+
   attr_reader :board, :cruiser, :submarine
   def initialize
     @board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
+    # @messages = {
+    #   msg_1:
+    # }
   end
+
   def main_menu
     puts "Welcome to BATTLESHIP\n"
     loop do
@@ -34,13 +39,13 @@ class Game
 
   def input
     puts "Enter the squares for the Cruiser (3 spaces):"
-    user_input = gets.chomp.split(",")
-    # user_input
-    # valid_input?(user_input)
+    user_input = gets.chomp.split(" ")
+    valid_input?(user_input)
     # until user_input == @board.valid_placement?(@cruiser, user_input)
     #   puts "Those are invalid coordinates. Please try again:"
     #   # user_input = valid_input?
     # end
+    @board.place(@cruiser, user_input)
     puts @board.render(true)
     #board should render here with cruiser placed on whatever coordinates were
     #passed in
@@ -79,7 +84,7 @@ class Game
   end
 
   def valid_input?(user_input)
-    if sanitized_input(user_input).length <= 3
+    if user_input.length <= 3
       true
     else
       puts "This isn't a valid input, try again."
@@ -90,5 +95,5 @@ class Game
   def error_messages(coordinates)
 		raise "You cannot place a ship outside of the grid" if # coordinate not on grid
 		raise "You cannot place a ship on another ship" if @board.ships_overlap?(coordinates)
-	end
+  end
 end
