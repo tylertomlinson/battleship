@@ -54,14 +54,11 @@ class Game
   end
 
   def input
-    # puts @messages[:msg_6]
     user_input = gets.chomp
     user_input = sanitized_input(user_input)
     valid_input?(user_input)
     @board.valid_placement?(@cruiser, user_input)
-    while !valid_input?(user_input)
-      puts :err_msg_2
-    end
+
     @board.place(@cruiser, user_input)
     puts @board.render(true)
     #board should render here with cruiser placed on whatever coordinates were
@@ -74,10 +71,6 @@ class Game
 
     @board.place(@submarine, user_input)
     puts @messages[:msg_8]
-    # until valid_placement?(user_input)
-    #   puts "Those are invalid coordinates. Please try again:"
-    #   user_input = gets.chomp
-    # end
     #board should render here with cruiser and submarine placed on whatever
     #coordinates were passed in
     turn
@@ -122,10 +115,5 @@ class Game
       exit
     else puts @messages[:err_msg_1]
     end
-  end
-
-  def error_messages(coordinates)
-		raise "You cannot place a ship outside of the grid" if # coordinate not on grid
-		raise "You cannot place a ship on another ship" if @board.ships_overlap?(coordinates)
   end
 end
