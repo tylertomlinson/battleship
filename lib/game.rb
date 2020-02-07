@@ -15,21 +15,19 @@ class Game
       msg_3: "I have now laid out my ships on the grid.\n",
       msg_4: "You now need to lay out your two ships.\n",
       msg_5: "The Cruiser is three units long and the Submarine is two units long.\n",
-      #msg_6: @board.render,
-      msg_7: "Enter the squares for the Cruiser (3 spaces):\n",
-      #msg_8: @board.render(true)
-      msg_9: "Enter the squares for the Submarine (2 spaces):\n",
-      msg_10: "=============COMPUTER BOARD=============\n",
-      msg_11: "==============PLAYER BOARD==============\n",
-      msg_12: "Enter the coordinate for your shot:\n",
-      msg_13: "Your shot on  was a miss.",
-      msg_14: "Your shot on  was a hit.",
-      msg_15: "Your shot on  sunk my !",
-      msg_16: "My shot on  was a miss.",
-      msg_17: "My shot on  was a hit.",
-      msg_18: "My shot on  sunk your !",
-      msg_19: "You won!",
-      msg_20: "I won!",
+      msg_6: "Enter the squares for the Cruiser (3 spaces):\n",
+      msg_7: "Enter the squares for the Submarine (2 spaces):\n",
+      msg_8: "=============COMPUTER BOARD=============\n",
+      msg_9: "==============PLAYER BOARD==============\n",
+      msg_10: "Enter the coordinate for your shot:\n",
+      msg_11: "Your shot on  was a miss.",
+      msg_12: "Your shot on  was a hit.",
+      msg_13: "Your shot on  sunk my !",
+      msg_14: "My shot on  was a miss.",
+      msg_15: "My shot on  was a hit.",
+      msg_16: "My shot on  sunk your !",
+      msg_17: "You won!",
+      msg_18: "I won!",
       err_msg_1: "Invalid input please enter (q) or (p)\n",
       err_msg_2: "Those are invalid coordinates. Please try again:\n",
       err_msg_3: "Please enter a valid coordinate:\n",
@@ -56,7 +54,7 @@ class Game
   end
 
   def input
-    puts "Enter the squares for the Cruiser (3 spaces):"
+    # puts @messages[:msg_6]
     user_input = gets.chomp
     user_input = sanitized_input(user_input)
     valid_input?(user_input)
@@ -68,8 +66,14 @@ class Game
     puts @board.render(true)
     #board should render here with cruiser placed on whatever coordinates were
     #passed in
-    puts "Enter the squares for the Submarine (2 spaces):"
+    puts @messages[:msg_7]
     user_input = gets.chomp
+    user_input = sanitized_input(user_input)
+    valid_input?(user_input)
+    @board.valid_placement?(@submarine, user_input)
+
+    @board.place(@submarine, user_input)
+    puts @messages[:msg_8]
     # until valid_placement?(user_input)
     #   puts "Those are invalid coordinates. Please try again:"
     #   user_input = gets.chomp
@@ -103,7 +107,7 @@ class Game
   end
 
   def valid_input?(user_input)
-    if user_input.length <= 3
+    if @board.valid_placement?(@cruiser, user_input) || @board.valid_placement?(@submarine, user_input)
       true
     else
       puts "This isn't a valid input, try again."
