@@ -9,9 +9,32 @@ class Game
     @board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
-    # @messages = {
-    #   msg_1:
-    # }
+    @messages = {
+      msg_1: "Welcome to BATTLESHIP\n",
+      msg_2: "Enter p to play. Enter q to quit.",
+      msg_3: "I have now laid out my ships on the grid.\n",
+      msg_4: "You now need to lay out your two ships.\n",
+      msg_5: "The Cruiser is three units long and the Submarine is two units long.\n",
+      #msg_6: @board.render,
+      msg_7: "Enter the squares for the Cruiser (3 spaces):\n",
+      #msg_8: @board.render(true)
+      msg_9: "Enter the squares for the Submarine (2 spaces):\n",
+      msg_10: "=============COMPUTER BOARD=============\n",
+      msg_11: "==============PLAYER BOARD==============\n",
+      msg_12: "Enter the coordinate for your shot:\n",
+      msg_13: "Your shot on #{user_input} was a miss.",
+      msg_14: "Your shot on #{user_input} was a hit.",
+      msg_15: "Your shot on #{user_input} sunk my #{ship}!",
+      msg_16: "My shot on #{computer_shot} was a miss.",
+      msg_17: "My shot on #{computer_shot} was a hit.",
+      msg_18: "My shot on #{computer_shot} sunk your #{ship}!",
+      msg_19: "You won!",
+      msg_20: "I won!",
+      err_msg_1: "Invalid input please enter (q) or (p)\n",
+      err_msg_2: "Those are invalid coordinates. Please try again:\n",
+      err_msg_3: "Please enter a valid coordinate:\n",
+      err_msg_4: "This isn't a valid input, try again.\n"
+    }
   end
 
   def main_menu
