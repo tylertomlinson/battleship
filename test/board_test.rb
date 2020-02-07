@@ -28,7 +28,28 @@ class BoardTest < Minitest::Test
     refute @board.valid_coordinate?("A22")
   end
 
+#HELPER METHOD TESTS FOR VALID_PLACEMENT?
+
+  def test_ship_length_is_the_same_as_input_coordinates
+    assert_equal true, @board.appropriate_length?(@submarine, ["A1", "A2"])
+    assert_equal false, @board.appropriate_length?(@cruiser, ["B1", "B2", "C3", "D4"])
+  end
+
+  def test_letters_can_be_converted_to_ordinal_numbers
+    assert_equal [66,67,68], @board.letter_ordinates(["B1", "C1", "D1"])
+  end
+
+  def test_coordinates_are_consecutive
+    skip
+    assert @board.consecutive?(["A1", "B1"])
+    refute @board.consecutive?(["A1", "A2", "A4"])
+  end
+
+
+#-----------------------------------------------------------------------------
+
   def test_board_can_check_valid_placement
+
     refute @board.valid_placement?(@cruiser, ["A1", "A2"])
     refute @board.valid_placement?(@submarine, ["A2", "A3", "A4"])
     assert @board.valid_placement?(@submarine, ["A1", "A2"])
