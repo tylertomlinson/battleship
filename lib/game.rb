@@ -22,12 +22,12 @@ class Game
       msg_10: "=============COMPUTER BOARD=============\n",
       msg_11: "==============PLAYER BOARD==============\n",
       msg_12: "Enter the coordinate for your shot:\n",
-      msg_13: "Your shot on #{user_input} was a miss.",
-      msg_14: "Your shot on #{user_input} was a hit.",
-      msg_15: "Your shot on #{user_input} sunk my #{ship}!",
-      msg_16: "My shot on #{computer_shot} was a miss.",
-      msg_17: "My shot on #{computer_shot} was a hit.",
-      msg_18: "My shot on #{computer_shot} sunk your #{ship}!",
+      msg_13: "Your shot on  was a miss.",
+      msg_14: "Your shot on  was a hit.",
+      msg_15: "Your shot on  sunk my !",
+      msg_16: "My shot on  was a miss.",
+      msg_17: "My shot on  was a hit.",
+      msg_18: "My shot on  sunk your !",
       msg_19: "You won!",
       msg_20: "I won!",
       err_msg_1: "Invalid input please enter (q) or (p)\n",
@@ -38,36 +38,32 @@ class Game
   end
 
   def main_menu
-    puts "Welcome to BATTLESHIP\n"
+    puts @messages[:msg_1]
     loop do
-    puts "Enter p to play. Enter q to quit."
-    user_input = gets.chomp
-    if  user_input == "p"
-      start
-    elsif user_input == "q"
-      kernel.quit
-    else "Invalid input please enter (q) or (p)"
+      puts @messages[:msg_2]
+      user_input = gets.chomp
+      menu_options(user_input)
     end
-  end
-  start
+    start
   end
 
   def start
-    puts "I have now laid out my ships on the grid.\n"
-    puts "You now need to lay out your two ships.\n"
-    puts "The Cruiser is three units long and the Submarine is two units long.\n"
-    puts @board.render
+    puts @messages[:msg_3]
+    puts @messages[:msg_4]
+    puts @messages[:msg_5]
+    puts @messages[:msg_6]
     input
   end
 
   def input
     puts "Enter the squares for the Cruiser (3 spaces):"
-    user_input = gets.chomp.split(" ")
+    user_input = gets.chomp
+    user_input = sanitized_input(user_input)
     valid_input?(user_input)
-    # until user_input == @board.valid_placement?(@cruiser, user_input)
-    #   puts "Those are invalid coordinates. Please try again:"
-    #   # user_input = valid_input?
-    # end
+    @board.valid_placement?(@cruiser, user_input)
+    while !valid_input?(user_input)
+      puts :err_msg_2
+    end
     @board.place(@cruiser, user_input)
     puts @board.render(true)
     #board should render here with cruiser placed on whatever coordinates were
@@ -112,6 +108,15 @@ class Game
     else
       puts "This isn't a valid input, try again."
       input
+    end
+  end
+
+  def menu_options(user_input)
+    if  user_input == "p"
+      start
+    elsif user_input == "q"
+      exit
+    else puts @messages[:err_msg_1]
     end
   end
 
