@@ -4,7 +4,7 @@ require './lib/cell'
 require './lib/board'
 
 class BoardTest < Minitest::Test
-
+  
   def setup
     @board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
@@ -20,15 +20,13 @@ class BoardTest < Minitest::Test
     assert_instance_of Cell, @board.cells["A1"]
   end
 
-  def test_board_can_check_valid_coordinate
+  def test_board_can_check_valid_coordinates
     assert @board.valid_coordinate?("A1")
     assert @board.valid_coordinate?("D4")
     refute @board.valid_coordinate?("A5")
     refute @board.valid_coordinate?("E1")
     refute @board.valid_coordinate?("A22")
   end
-
-#HELPER METHOD TESTS FOR VALID_PLACEMENT?
 
   def test_ship_length_is_the_same_as_input_coordinates
     assert_equal true, @board.appropriate_length?(@submarine, ["A1", "A2"])
@@ -40,16 +38,11 @@ class BoardTest < Minitest::Test
   end
 
   def test_coordinates_are_consecutive
-    skip
     assert @board.consecutive?(["A1", "B1"])
     refute @board.consecutive?(["A1", "A2", "A4"])
   end
 
-
-#-----------------------------------------------------------------------------
-
   def test_board_can_check_valid_placement
-
     refute @board.valid_placement?(@cruiser, ["A1", "A2"])
     refute @board.valid_placement?(@submarine, ["A2", "A3", "A4"])
     assert @board.valid_placement?(@submarine, ["A1", "A2"])
@@ -79,5 +72,4 @@ class BoardTest < Minitest::Test
     assert_instance_of Ship, cell_2.ship
     assert_instance_of Ship, cell_3.ship
   end
-
 end

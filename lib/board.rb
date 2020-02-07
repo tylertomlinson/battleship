@@ -49,7 +49,7 @@ class Board
   def number_coordinates(coordinates)
     coordinates.map(&:chars).map {|coordinate| coordinate[1].to_i}
   end
-
+  
   def consecutive_letter_coordinates?(coordinates)
     letter_coordinates(coordinates).uniq.size == 1 &&
     number_coordinates(coordinates).each_cons(2).all? { |number1, number2| number2 == (number1 + 1) }
@@ -64,18 +64,3 @@ class Board
     coordinates.each { |coordinate| @cells[coordinate].place_ship(ship) }
   end
 end
-# def consecutive?(coordinates)
-#   letters_cords = coordinates.map(&:chars).map {|coordinate| coordinate[0]}
-#   numbers_cords = coordinates.map(&:chars).map {|coordinate| coordinate[1].to_i}
-#   if letters_cords.uniq.size == 1 &&
-#   numbers_cords.each_cons(2).all? do |number1, number2|
-#     number2 == (number1 + 1)
-#   end
-#     true
-#   elsif numbers_cords.uniq.size == 1 &&
-#     letters_cords.map { |letter| letter.ord }.each_cons(2).all? {|number1, number2| number2 == (number1 + 1)}
-#     true
-#   else
-#     false
-#   end
-# end
