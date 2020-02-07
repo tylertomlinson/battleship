@@ -23,6 +23,7 @@ class CellTest < Minitest::Test
     assert @cell_1.empty?
 
     @cell_1.place_ship(@cruiser)
+
     assert_equal @cruiser, @cell_1.ship
     refute @cell_1.empty?
   end
@@ -32,6 +33,7 @@ class CellTest < Minitest::Test
     refute @cell_1.fired_upon?
 
     @cell_1.fire_upon
+
     assert @cell_1.fired_upon?
     assert_equal 2, @cruiser.health
   end
@@ -40,18 +42,22 @@ class CellTest < Minitest::Test
     assert_equal ".", @cell_1.render
 
     @cell_1.fire_upon
+
     assert_equal "M", @cell_1.render
 
     @cell_2.place_ship(@cruiser)
+
     assert_equal ".", @cell_2.render
     assert_equal "S", @cell_2.render(true)
 
     @cell_2.fire_upon
+
     assert_equal "H", @cell_2.render
     assert_equal false, @cruiser.sunk?
 
     @cruiser.hit
     @cruiser.hit
+
     assert_equal true, @cruiser.sunk?
     assert_equal "X", @cell_2.render
   end

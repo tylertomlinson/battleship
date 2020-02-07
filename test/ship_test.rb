@@ -19,14 +19,21 @@ class ShipTest < Minitest::Test
 
   def test_ship_can_take_multiple_hits_health_changes_and_sunk_at_0
     assert_equal 3, @cruiser.health
+
     refute @cruiser.sunk?
+
     @cruiser.hit
+
     assert_equal 2, @cruiser.health
     refute @cruiser.sunk?
+
     @cruiser.hit
+
     assert_equal 1, @cruiser.health
     refute @cruiser.sunk?
+
     @cruiser.hit
+
     assert_equal 0, @cruiser.health
     assert @cruiser.sunk?
   end
