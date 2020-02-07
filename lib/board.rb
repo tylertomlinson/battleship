@@ -35,15 +35,11 @@ class Board
   end
 
   def ships_cannot_overlap?(coordinates)
-    coordinates.all? do |coordinate|
-      if @cells.key?(coordinate)
-        @cells[coordinate].empty?
-      end
-    end
+    coordinates.all? { |coordinate| @cells.key?(coordinate) == @cells[coordinate].empty? }
   end
 
   def consecutive?(coordinates)
-    consecutive_letter_coordinates?(coordinates) && consecutive_number_coordinates?(coordinates)
+    consecutive_letter_coordinates?(coordinates) || consecutive_number_coordinates?(coordinates)
   end
 
   def letter_coordinates(coordinates)
