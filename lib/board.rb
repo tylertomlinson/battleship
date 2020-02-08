@@ -31,6 +31,7 @@ class Board
   end
 
   def appropriate_length?(ship, coordinates)
+    # require "pry"; binding.pry
     coordinates.length == ship.length
   end
 
