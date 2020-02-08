@@ -11,6 +11,7 @@ class Game
     @board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
+
   end
 
   def main_menu
