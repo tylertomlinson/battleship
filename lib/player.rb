@@ -11,5 +11,13 @@ class Player
     @player_board.valid_placement?(ship, coordinates)
   end
 
+  def player_placement(ship, coordinates)
+    valid_player_placement(ship, coordinates)
+    coordinates.each {|cell| @player_board.cells[cell].place_ship(ship)}
+  end
 
+  def take_turn(coordinate)
+    #player passes in one coordinate per turn
+    @computer_board.cells[coordinate].fire_upon
+  end
 end

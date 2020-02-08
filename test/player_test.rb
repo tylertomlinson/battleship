@@ -30,4 +30,17 @@ class Test < Minitest::Test
 
     refute @player.valid_player_placement(@ship, test_coordinates)
   end
+
+  def test_player_can_place_ship_and_board_renders
+    @player.valid_player_placement(@ship, @coordinates)
+    @player.player_placement(@ship, @coordinates)
+
+    assert @player_board.render(true).include?("S")
+  end
+
+  def test_player_can_take_turn
+    @player.take_turn("A1")
+
+    assert @computer_board.cells["A1"].fired_upon?
+  end
 end
