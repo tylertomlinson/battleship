@@ -68,4 +68,10 @@ class BoardTest < Minitest::Test
     assert_instance_of Ship, cell_2.ship
     assert_instance_of Ship, cell_3.ship
   end
+
+  def test_board_can_be_rendered
+    # assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", @board.render
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    assert_equal "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n", @board.render(true)
+  end
 end
