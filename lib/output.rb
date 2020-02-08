@@ -16,8 +16,8 @@ end
 def messages
   {
   msg_1: "\n Welcome to \n#{battleship_text}\n",
-  msg_2: "Enter #{color.red("P")} to play. Enter #{color.red("Q")} to quit.",
-  msg_3: "\nI have now laid out my ships on the grid. \n",
+  msg_2: "Enter #{color.green("P")} to play. Enter #{color.red("Q")} to quit.",
+  msg_3: "\nI have laid out my ships on the grid. \n",
   msg_4: "Now It's your turn... place the strategically!\n\n",
   msg_5: "The Cruiser is three units long and the Submarine is two units long.\n",
   msg_6: "Enter the coordinates for the Cruiser (3 spaces):\n",
