@@ -16,7 +16,6 @@ class Player
   end
 
   def take_turn(coordinate)
-    #player passes in one coordinate per turn
     @opponent_board.cells[coordinate].fire_upon
   end
 end
