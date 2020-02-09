@@ -35,10 +35,17 @@ module OutputModule
       msg_16: "My shot on  sunk your !",
       msg_17: "You won!",
       msg_18: "I won!",
-      err_msg_1: "Invalid input please enter (q) or (p)\n",
-      err_msg_2: "Those are invalid coordinates. Please try again:\n",
+      err_msg_1: "Invalid input please enter #{color.green("(P)")} or #{color.red("(Q)")}\n",
+      err_msg_2: "Those are invalid coordinates. Please try        again:\n",
       err_msg_3: "Please enter a valid coordinate:\n",
       err_msg_4: "This isn't a valid input, try again.\n",
+      #smart AI
+      ai_msg_1: "Another MISS! I'm beginning to think this will end quickly.",
+      ai_msg_2: "Target aquired. I'm on the hunt now!",
+      ai_msg_3: "Just warming up",
+      ai_msg_4: "",
+      ai_msg_5: "Try your luck again? This time I will take it easy.",
+      ai_msg_6: "I wouldn't want to loose either. See ya next time!"
     }
   end
 end
