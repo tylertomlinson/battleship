@@ -1,23 +1,22 @@
 class Player
-    attr_reader :player_board, :computer_board
+    attr_accessor :your_board, :opponent_board
 
-  def initialize(player_board, computer_board)
-    @player_board = player_board
-    @computer_board = computer_board
+  def initialize
+    @your_board = Board.new
+    @opponent_board = Board.new
   end
 
   def valid_player_placement(ship, coordinates)
-    # require "pry"; binding.pry
-    @player_board.valid_placement?(ship, coordinates)
+    @your_board.valid_placement?(ship, coordinates)
   end
 
   def player_placement(ship, coordinates)
     valid_player_placement(ship, coordinates)
-    coordinates.each {|cell| @player_board.cells[cell].place_ship(ship)}
+    coordinates.each {|cell| @your_board.cells[cell].place_ship(ship)}
   end
 
   def take_turn(coordinate)
     #player passes in one coordinate per turn
-    @computer_board.cells[coordinate].fire_upon
+    @opponent_board.cells[coordinate].fire_upon
   end
 end

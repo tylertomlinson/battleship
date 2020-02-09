@@ -7,40 +7,54 @@ require './lib/player'
 class Test < Minitest::Test
 
   def setup
-    @computer_board = Board.new
-    @player_board = Board.new
-    @player = Player.new(@player_board, @computer_board)
+    @player1 = Player.new
+    @player2 = Player.new
     @ship = Ship.new("Cruiser", 3)
     @coordinates = ["A1", "A2", "A3"]
+    @cruiser_options = [["A1", "A2", "A3"], ["C2", "C3", "C4"]].sample
+    @sub_options = [["D1", "D2"], ["A4", "B4"]].sample
   end
 
   def test_it_exists
-    assert_instance_of Player, @player
+    assert_instance_of Player, @player1
+    assert_instance_of Player, @player2
+
   end
 
-  def test_player_has_attributes
-    assert_equal @computer_board, @player.computer_board
-    assert_equal @player_board, @player.player_board
+  def test_player_has_own_board_and_opponent_board
+    assert_instance_of Board , @player1.your_board
+    assert_instance_of Board, @player1.opponent_board
+
+    assert_instance_of Board, @player2.your_board
+    assert_instance_of Board, @player2.opponent_board
   end
 
-  def test_player_has_entered_valid_coordinates
-    assert @player.valid_player_placement(@ship, @coordinates)
+  def test_user_has_entered_valid_coordinates
+    assert @player1.valid_player_placement(@ship, @coordinates)
 
     test_coordinates = ["A2", "C4", "B1"]
 
-    refute @player.valid_player_placement(@ship, test_coordinates)
+    refute @player1.valid_player_placement(@ship, test_coordinates)
+  end
+
+  def test_opponent_has_entered_valid_coordinates
+    assert @player2.valid_player_placement(@ship, @cruiser_options)
+
+    test_coordinates = ["A2", "C4", "B1"]
+
+    refute @player2.valid_player_placement(@ship, test_coordinates)
   end
 
   def test_player_can_place_ship_and_board_renders
-    @player.valid_player_placement(@ship, @coordinates)
-    @player.player_placement(@ship, @coordinates)
+    @player1.valid_player_placement(@ship, @coordinates)
+    @player1.player_placement(@ship, @coordinates)
 
-    assert @player_board.render(true).include?("S")
+    assert @player1.your_board.render(true).include?("S")
   end
 
   def test_player_can_take_turn
-    @player.take_turn("A1")
+    @player1.take_turn("A1")
 
-    assert @computer_board.cells["A1"].fired_upon?
+    assert @player1.opponent_board.cells["A1"].fired_upon?
   end
 end
