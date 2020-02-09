@@ -92,7 +92,7 @@ class Game
   end
 
   def menu_options(user_input)
-    if  user_input == "p"
+    if user_input == "p"
       start
     elsif user_input == "q"
       exit
