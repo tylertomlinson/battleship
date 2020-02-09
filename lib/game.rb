@@ -1,6 +1,7 @@
 require './lib/board'
 require './lib/ship'
 require './lib/cell'
+require './lib/player'
 require_relative 'output'
 
 class Game
@@ -11,6 +12,7 @@ class Game
     @board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
+    @player = Player.new
   end
 
   def main_menu
@@ -62,9 +64,9 @@ class Game
 
   def turn
     puts messages[:msg_8]
-    #this should display the computers board, but not its ships
+    @player.opponent_board.render
     puts messages[:msg_9]
-    #this should display the players board with its ships
+    @player.your_board.render(true)
 
     puts  messages[:msg_10]
     shot_coordinate = gets.chomp.upcase
@@ -79,14 +81,21 @@ class Game
   end
 
   def sanitized_input(user_input)
-    user_input.upcase.strip.gsub(" ", "").scan(/../)
+    user_input = user_input.upcase.strip.gsub(" ", "").scan(/../)
+    fixed_input = []
+    user_input.each do |input|
+      if @board.cells.keys.include?(input)
+        fixed_input << input
+      end
+    end
+    fixed_input
   end
 
   def valid_input?(user_input)
     if @board.valid_placement?(@cruiser, user_input) || @board.valid_placement?(@submarine, user_input)
       true
     else
-       messages[:err_msg_4]
+      messages[:err_msg_4]
       input
     end
   end
@@ -95,8 +104,8 @@ class Game
     if user_input == "p"
       start
     elsif user_input == "q"
-      exit
-    else puts messages[:err_msg_1]
+       Process.exit!(true)
+    else p messages[:err_msg_1]
     end
   end
 end
