@@ -6,12 +6,12 @@ class Player
     @opponent_board = Board.new
   end
 
-  def valid_player_placement(ship, coordinates)
+  def valid_ship_placement(ship, coordinates)
     @your_board.valid_placement?(ship, coordinates)
   end
 
-  def player_placement(ship, coordinates)
-    valid_player_placement(ship, coordinates)
+  def ship_placement(ship, coordinates)
+    valid_ship_placement(ship, coordinates)
     coordinates.each {|cell| @your_board.cells[cell].place_ship(ship)}
   end
 

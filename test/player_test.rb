@@ -30,24 +30,24 @@ class Test < Minitest::Test
   end
 
   def test_user_has_entered_valid_coordinates
-    assert @player1.valid_player_placement(@ship, @coordinates)
+    assert @player1.valid_ship_placement(@ship, @coordinates)
 
     test_coordinates = ["A2", "C4", "B1"]
 
-    refute @player1.valid_player_placement(@ship, test_coordinates)
+    refute @player1.valid_ship_placement(@ship, test_coordinates)
   end
 
   def test_opponent_has_entered_valid_coordinates
-    assert @player2.valid_player_placement(@ship, @cruiser_options)
+    assert @player2.valid_ship_placement(@ship, @cruiser_options)
 
     test_coordinates = ["A2", "C4", "B1"]
 
-    refute @player2.valid_player_placement(@ship, test_coordinates)
+    refute @player2.valid_ship_placement(@ship, test_coordinates)
   end
 
   def test_player_can_place_ship_and_board_renders
-    @player1.valid_player_placement(@ship, @coordinates)
-    @player1.player_placement(@ship, @coordinates)
+    @player1.valid_ship_placement(@ship, @coordinates)
+    @player1.ship_placement(@ship, @coordinates)
 
     assert @player1.your_board.render(true).include?("S")
   end

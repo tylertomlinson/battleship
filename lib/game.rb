@@ -1,25 +1,30 @@
 require './lib/board'
-require './lib/ship'
 require './lib/cell'
+require './lib/ship'
 require './lib/player'
 require_relative 'output'
 
 class Game
   include OutputModule
 
-  attr_reader :board, :cruiser, :submarine
+  attr_reader :board, :cruiser, :submarine, :user, :computer
+
   def initialize
-    @board = Board.new
+    @user_board = Board.new
+    @player_board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
-    @player = Player.new
+    @user = Player.new
+    @computer = Player.new
+    @cruiser_options = [["A1", "A2", "A3"], ["C2", "C3", "C4"]].sample
+    @sub_options = [["D1", "D2"], ["A4", "B4"]].sample
   end
 
   def main_menu
     puts messages[:msg_1]
-    sleep 2
-    loop do
+    # sleep 2
       puts messages[:msg_2]
+      loop do
       user_input = gets.chomp
       menu_options(user_input)
     end
@@ -27,14 +32,17 @@ class Game
   end
 
   def start
+    @computer.ship_placement(@cruiser, @cruiser_options)
+    @computer.ship_placement(@submarine, @sub_options)
+
     puts messages[:msg_3]
-    sleep 1.5
+    # sleep 1.5
     puts messages[:msg_4]
-    sleep 1.5
+    # sleep 1.5
     puts messages[:msg_5]
-    sleep 1.5
+    # sleep 1.5
     puts messages[:msg_6]
-    sleep 0.5
+    # sleep 0.5
     input
   end
 
@@ -55,7 +63,7 @@ class Game
     @board.valid_placement?(@submarine, user_input)
 
     @board.place(@submarine, user_input)
-    puts messages[:msg_8]
+
     #board should render here with cruiser and submarine placed on whatever
     #coordinates were passed in
     turn
@@ -69,10 +77,16 @@ class Game
     @player.your_board.render(true)
 
     puts  messages[:msg_10]
+
     shot_coordinate = gets.chomp.upcase
+    @user.take_turn(shot_coordinate)
+    guess = @computer.take_turn
+    # need to use render method and have feedback display what the shot did
+    puts "#{(guess)}"
+    puts "#{(coordinate)}"
     #this until should check if shot_coordinate is a rendered cell
     until valid_input?(shot_coordinate)
-    puts   messages[:err_msg_3]
+    puts messages[:err_msg_3]
       shot_coordinate = gets.chomp.upcase
     end
     puts "Your shot on #{shot_coordinate} was a miss."
@@ -92,6 +106,7 @@ class Game
   end
 
   def valid_input?(user_input)
+
     if @board.valid_placement?(@cruiser, user_input) || @board.valid_placement?(@submarine, user_input)
       true
     else
@@ -104,8 +119,19 @@ class Game
     if user_input == "p"
       start
     elsif user_input == "q"
-       Process.exit!(true)
-    else p messages[:err_msg_1]
+      puts messages[:ai_msg_6]
+      Process.exit!(true)
+    else
+    puts messages[:err_msg_1]
     end
   end
+
+  def end_game
+    return "You won!" if health(@computer_board) == 0
+    return "I won!" if health(@player_board) == 0
+    return "You ended the game" if end_game
+  end
 end
+
+#valid input is breaking
+#need to loop over placing ship
