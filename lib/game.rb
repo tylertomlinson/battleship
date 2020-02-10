@@ -8,7 +8,6 @@ class Game
   include OutputModule
 
   attr_reader :board, :cruiser, :submarine, :user, :computer, :user_board, :computer_board
-
   def initialize
     @user_board = Board.new
     @computer_board = Board.new
@@ -41,13 +40,16 @@ class Game
     # sleep 1.5
     puts messages[:msg_5]
     # sleep 1.5
-    # puts messages[:msg_6]
+    cruiser_coordinates
+  end
+
+  def cruiser_coordinates
+    puts messages[:msg_6]
     # sleep 0.5
     cruiser_input
   end
 
   def cruiser_input
-    puts messages[:msg_6]
     user_input = gets.chomp
     user_input = sanitized_input(user_input)
     valid_cruiser_input?(user_input)
@@ -57,11 +59,16 @@ class Game
     puts @user_board.render(true)
     #board should render here with cruiser placed on whatever coordinates were
     #passed in
+    submarine_coordinates
+  end
+
+  def submarine_coordinates
+    puts messages[:msg_7]
+    # sleep 0.5
     submarine_input
   end
 
   def submarine_input
-    puts messages[:msg_7]
     user_input = gets.chomp
     user_input = sanitized_input(user_input)
     valid_submarine_input?(user_input)
@@ -103,14 +110,18 @@ class Game
     user_input = user_input.upcase.strip.gsub(" ", "").scan(/../)
   end
 
-
-
   def valid_cruiser_input?(user_input)
-    if @user_board.valid_placement?(@cruiser, user_input)
-    else
+    while !@user_board.valid_placement?(@cruiser, user_input)
       puts messages[:err_msg_4]
+      # cruiser_input
       cruiser_input
     end
+    # if @user_board.valid_placement?(@cruiser, user_input)
+    #   true
+    # else
+    #   puts messages[:err_msg_4]
+    #   cruiser_input
+    # end
   end
 
   def valid_submarine_input?(user_input)

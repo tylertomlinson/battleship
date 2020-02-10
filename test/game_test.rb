@@ -28,8 +28,7 @@ class Gametest < Minitest::Test
   end
 
   def test_valid_cruiser_input
-    # assert_equal false, @game.valid_cruiser_input?(["A1", "A2", "A1" ])
-    # require "pry"; binding.pry
+    assert_equal true, @game.valid_cruiser_input?(["A1", "A2", "A3"])
   end
 
   def test_menu_options
