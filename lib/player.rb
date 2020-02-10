@@ -1,9 +1,9 @@
 class Player
-    attr_accessor :your_board, :opponent_board
+    attr_accessor :your_board, :computer_board
 
   def initialize
     @your_board = Board.new
-    @opponent_board = Board.new
+    @computer_board = Board.new
   end
 
   def valid_ship_placement(ship, coordinates)
@@ -16,6 +16,6 @@ class Player
   end
 
   def take_turn(coordinate)
-    @opponent_board.cells[coordinate[0]].fire_upon
+    @computer_board.cells[coordinate[0]].fire_upon
   end
 end
