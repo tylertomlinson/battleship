@@ -30,6 +30,7 @@ class Game
     start
   end
 
+
   def start
     @computer.ship_placement(@cruiser, @cruiser_options)
     @computer.ship_placement(@submarine, @sub_options)
@@ -40,38 +41,61 @@ class Game
     # sleep 1.5
     puts messages[:msg_5]
     # sleep 1.5
-    puts messages[:msg_6]
-    # sleep 0.5
-    input
+    cruiser_coordinates
   end
 
-  def input
+  def cruiser_coordinates
+    puts messages[:msg_6]
+    # sleep 0.5
+    cruiser_input
+    puts messages[:msg_6]
+    # sleep 0.5
+    cruiser_input
+  end
+
+  def cruiser_input
     user_input = gets.chomp
     user_input = sanitized_input(user_input)
-    valid_input?(user_input)
+    valid_cruiser_input?(user_input)
     @user_board.valid_placement?(@cruiser, user_input)
 
     @user_board.place(@cruiser, user_input)
     puts @user_board.render(true)
     #board should render here with cruiser placed on whatever coordinates were
     #passed in
+    submarine_coordinates
+  end
+
+  def submarine_coordinates
     puts messages[:msg_7]
+    # sleep 0.5
+    submarine_input
+  end
+
+  def submarine_input
     user_input = gets.chomp
     user_input = sanitized_input(user_input)
-    valid_input?(user_input)
+    valid_submarine_input?(user_input)
     @user_board.valid_placement?(@submarine, user_input)
 
+    @user_board.place(@submarine, user_input)
+    puts @user_board.render(true)
     @user_board.place(@submarine, user_input)
     #board should render here with cruiser and submarine placed on whatever
     #coordinates were passed in before turn starts?
     turn
   end
 
-
   def turn
     puts messages[:msg_8]
-    puts @computer_board.render
+    @computer_board.render
     puts messages[:msg_9]
+    @user_board.render(true)
+    #this should display the computers board, but not its
+    #ships
+    puts @user_board.render
+    puts messages[:msg_9]
+    #this should display the players board with its ships
     puts @user_board.render(true)
     puts  messages[:msg_10]
     user_guess = [] << gets.chomp.upcase
@@ -87,19 +111,21 @@ class Game
     turn
   end
 
-    #render boards could be its own method which is called within turn. need to test
+  def sanitized_input(user_input)
+    user_input = user_input.upcase.strip.gsub(" ", "").scan(/../)
+  end
 
-    def sanitized_input(user_input)
-      user_input.upcase.strip.gsub(" ", "").scan(/../)
+  def valid_cruiser_input?(user_input)
+    while !@user_board.valid_placement?(@cruiser, user_input)
+      puts messages[:err_msg_4]
+      cruiser_input
     end
+  end
 
-    def valid_input?(user_input)
-      if @user_board.valid_placement?(@cruiser, user_input) || @user_board.valid_placement?(@submarine, user_input)
-        true
-      else
-        messages[:err_msg_4]
-        input
-      end
+  def valid_submarine_input?(user_input)
+    while !@user_board.valid_placement?(@submarine, user_input)
+      puts messages[:err_msg_4]
+      submarine_input
     end
 
     def valid_guess?(coordinate)
