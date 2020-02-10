@@ -19,9 +19,14 @@ class Cell
     @fired_upon
   end
 
+  def ship?
+    @ship
+  end
+
+  #why can't I refactor without having hit no method on Nil class?
   def fire_upon
     if @ship != nil
-      @ship.hit
+    @ship.hit
     end
       @fired_upon = true
   end
