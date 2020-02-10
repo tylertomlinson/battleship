@@ -17,7 +17,7 @@ module OutputModule
 
   def messages
     {
-      msg_1: "\n Welcome to \n#{huge_text("3d","BATTLESHIP")}\n",
+      msg_1: "\n Welcome to \n#{huge_text("doom","BATTLESHIP")}\n",
       msg_2: "Enter #{color.green("P")} to play. Enter #{color.red("Q")} to quit.",
       msg_3: "\nI have laid out my ships on the grid. \n",
       msg_4: "Now It's your turn... place them strategically!\n\n",

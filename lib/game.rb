@@ -172,5 +172,5 @@ class Game
       return "You ended the game" if end_game
     end
   end
-
+end 
   #THIS IS BROKEN. HAVE NO IDEA WHAT IS GOING ON.
