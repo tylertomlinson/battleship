@@ -7,11 +7,11 @@ require_relative 'output'
 class Game
   include OutputModule
 
-  attr_reader :board, :cruiser, :submarine, :user, :computer
+  attr_reader :user_board, :cruiser, :submarine, :user, :computer, :computer_board
 
   def initialize
     @user_board = Board.new
-    @player_board = Board.new
+    @computer_board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
     @user = Player.new
@@ -31,6 +31,7 @@ class Game
     start
   end
 
+
   def start
     @computer.ship_placement(@cruiser, @cruiser_options)
     @computer.ship_placement(@submarine, @sub_options)
@@ -41,44 +42,62 @@ class Game
     # sleep 1.5
     puts messages[:msg_5]
     # sleep 1.5
-    puts messages[:msg_6]
-    # sleep 0.5
-    input
+    cruiser_coordinates
   end
 
-  def input
+  def cruiser_coordinates
+    puts messages[:msg_6]
+    # sleep 0.5
+    cruiser_input
+    puts messages[:msg_6]
+    # sleep 0.5
+    cruiser_input
+  end
+
+  def cruiser_input
     user_input = gets.chomp
     user_input = sanitized_input(user_input)
-    valid_input?(user_input)
-    @board.valid_placement?(@cruiser, user_input)
+    valid_cruiser_input?(user_input)
+    @user_board.valid_placement?(@cruiser, user_input)
 
-    @board.place(@cruiser, user_input)
-    puts @board.render(true)
+    @user_board.place(@cruiser, user_input)
+    puts @user_board.render(true)
     #board should render here with cruiser placed on whatever coordinates were
     #passed in
+    submarine_coordinates
+  end
+
+  def submarine_coordinates
     puts messages[:msg_7]
+    # sleep 0.5
+    submarine_input
+  end
+
+  def submarine_input
     user_input = gets.chomp
     user_input = sanitized_input(user_input)
-    valid_input?(user_input)
-    @board.valid_placement?(@submarine, user_input)
+    valid_submarine_input?(user_input)
+    @user_board.valid_placement?(@submarine, user_input)
 
-    @board.place(@submarine, user_input)
-
+    @user_board.place(@submarine, user_input)
+    puts @user_board.render(true)
+    @user_board.place(@submarine, user_input)
     #board should render here with cruiser and submarine placed on whatever
     #coordinates were passed in
     turn
   end
 
-
   def turn
     puts messages[:msg_8]
+    @computer_board.render
+    puts messages[:msg_9]
+    @user_board.render(true)
     #this should display the computers board, but not its
     #ships
-    puts @board.render
+    puts @user_board.render
     puts messages[:msg_9]
     #this should display the players board with its ships
-    puts @board.render(true)
-
+    puts @user_board.render(true)
     puts  messages[:msg_10]
 
     shot_coordinate = gets.chomp.upcase
@@ -98,16 +117,20 @@ class Game
   end
 
   def sanitized_input(user_input)
-    user_input.upcase.strip.gsub(" ", "").scan(/../)
+    user_input = user_input.upcase.strip.gsub(" ", "").scan(/../)
   end
 
-  def valid_input?(user_input)
+  def valid_cruiser_input?(user_input)
+    while !@user_board.valid_placement?(@cruiser, user_input)
+      puts messages[:err_msg_4]
+      cruiser_input
+    end
+  end
 
-    if @board.valid_placement?(@cruiser, user_input) || @board.valid_placement?(@submarine, user_input)
-      true
-    else
-       messages[:err_msg_4]
-      input
+  def valid_submarine_input?(user_input)
+    while !@user_board.valid_placement?(@submarine, user_input)
+      puts messages[:err_msg_4]
+      submarine_input
     end
   end
 
