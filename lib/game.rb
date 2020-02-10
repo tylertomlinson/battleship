@@ -7,7 +7,8 @@ require_relative 'output'
 class Game
   include OutputModule
 
-  attr_reader :board, :cruiser, :submarine, :user, :computer, :user_board, :computer_board
+  attr_reader :user_board, :cruiser, :submarine, :user, :computer, :computer_board
+
   def initialize
     @user_board = Board.new
     @computer_board = Board.new
@@ -22,13 +23,14 @@ class Game
   def main_menu
     puts messages[:msg_1]
     # sleep 2
-    loop do
       puts messages[:msg_2]
+      loop do
       user_input = gets.chomp
       menu_options(user_input)
     end
     start
   end
+
 
   def start
     @computer.ship_placement(@cruiser, @cruiser_options)
@@ -44,6 +46,9 @@ class Game
   end
 
   def cruiser_coordinates
+    puts messages[:msg_6]
+    # sleep 0.5
+    cruiser_input
     puts messages[:msg_6]
     # sleep 0.5
     cruiser_input
@@ -76,6 +81,7 @@ class Game
 
     @user_board.place(@submarine, user_input)
     puts @user_board.render(true)
+    @user_board.place(@submarine, user_input)
     #board should render here with cruiser and submarine placed on whatever
     #coordinates were passed in
     turn
@@ -86,7 +92,12 @@ class Game
     @computer_board.render
     puts messages[:msg_9]
     @user_board.render(true)
-
+    #this should display the computers board, but not its
+    #ships
+    puts @user_board.render
+    puts messages[:msg_9]
+    #this should display the players board with its ships
+    puts @user_board.render(true)
     puts  messages[:msg_10]
 
     shot_coordinate = gets.chomp.upcase

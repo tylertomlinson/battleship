@@ -32,7 +32,6 @@ class Gametest < Minitest::Test
   end
 
   def test_menu_options
-    # assert_equal messages[:err_msg_1], @game.menu_options("w")
   end
 
   def test_valid_input
