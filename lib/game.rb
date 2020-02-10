@@ -78,6 +78,7 @@ class Game
     user_guess = [] << gets.chomp.upcase
     @user.take_turn(user_guess)
     computer_guess = @computer.take_turn(user_guess)
+    require "pry"; binding.pry
     until valid_guess?(user_guess)
     puts messages[:err_msg_3]
       user_guess = [] << gets.chomp.upcase
@@ -111,6 +112,7 @@ class Game
 
 
   def display_shot_results(computer_guess)
+    require "pry"; binding.pry
     if @user_board.cells[computer_guess].render == 'M'
       "My shot on #{computer_guess} was a miss."
     elsif @user_board.cells[computer_guess].render == 'H'
