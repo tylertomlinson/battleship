@@ -8,7 +8,7 @@ class Game
   include OutputModule
 
   attr_accessor :user_board, :computer_board
-  attr_reader :user_board, :computer_board, :cruiser, :submarine, :user, :computer, :cruiser_options, :sub_options
+  attr_reader   :cruiser, :submarine, :user, :computer, :cruiser_options, :sub_options
 
   def initialize
     @user_board = Board.new
@@ -172,5 +172,5 @@ class Game
       return "You ended the game" if end_game
     end
   end
-end 
+end
   #THIS IS BROKEN. HAVE NO IDEA WHAT IS GOING ON.
