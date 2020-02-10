@@ -16,6 +16,6 @@ class Player
   end
 
   def take_turn(coordinate)
-    @opponent_board.cells[coordinate].fire_upon
+    @opponent_board.cells[coordinate[0]].fire_upon
   end
 end
