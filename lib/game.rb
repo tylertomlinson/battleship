@@ -7,11 +7,11 @@ require_relative 'output'
 class Game
   include OutputModule
 
-  attr_reader :board, :cruiser, :submarine, :user, :computer
+  attr_reader :board, :cruiser, :submarine, :user, :computer, :user_board, :computer_board
 
   def initialize
     @user_board = Board.new
-    @player_board = Board.new
+    @computer_board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
     @user = Player.new
@@ -23,8 +23,8 @@ class Game
   def main_menu
     puts messages[:msg_1]
     # sleep 2
+    loop do
       puts messages[:msg_2]
-      loop do
       user_input = gets.chomp
       menu_options(user_input)
     end
@@ -41,29 +41,34 @@ class Game
     # sleep 1.5
     puts messages[:msg_5]
     # sleep 1.5
-    puts messages[:msg_6]
+    # puts messages[:msg_6]
     # sleep 0.5
-    input
+    cruiser_input
   end
 
-  def input
+  def cruiser_input
+    puts messages[:msg_6]
     user_input = gets.chomp
     user_input = sanitized_input(user_input)
-    valid_input?(user_input)
-    @board.valid_placement?(@cruiser, user_input)
+    valid_cruiser_input?(user_input)
+    @user_board.valid_placement?(@cruiser, user_input)
 
-    @board.place(@cruiser, user_input)
-    puts @board.render(true)
+    @user_board.place(@cruiser, user_input)
+    puts @user_board.render(true)
     #board should render here with cruiser placed on whatever coordinates were
     #passed in
+    submarine_input
+  end
+
+  def submarine_input
     puts messages[:msg_7]
     user_input = gets.chomp
     user_input = sanitized_input(user_input)
-    valid_input?(user_input)
-    @board.valid_placement?(@submarine, user_input)
+    valid_submarine_input?(user_input)
+    @user_board.valid_placement?(@submarine, user_input)
 
-    @board.place(@submarine, user_input)
-
+    @user_board.place(@submarine, user_input)
+    puts @user_board.render(true)
     #board should render here with cruiser and submarine placed on whatever
     #coordinates were passed in
     turn
@@ -72,9 +77,9 @@ class Game
 
   def turn
     puts messages[:msg_8]
-    @player.opponent_board.render
+    @computer_board.render
     puts messages[:msg_9]
-    @player.your_board.render(true)
+    @user_board.render(true)
 
     puts  messages[:msg_10]
 
@@ -96,22 +101,23 @@ class Game
 
   def sanitized_input(user_input)
     user_input = user_input.upcase.strip.gsub(" ", "").scan(/../)
-    fixed_input = []
-    user_input.each do |input|
-      if @board.cells.keys.include?(input)
-        fixed_input << input
-      end
-    end
-    fixed_input
   end
 
-  def valid_input?(user_input)
 
-    if @board.valid_placement?(@cruiser, user_input) || @board.valid_placement?(@submarine, user_input)
-      true
+
+  def valid_cruiser_input?(user_input)
+    if @user_board.valid_placement?(@cruiser, user_input)
     else
-      messages[:err_msg_4]
-      input
+      puts messages[:err_msg_4]
+      cruiser_input
+    end
+  end
+
+  def valid_submarine_input?(user_input)
+    if @user_board.valid_placement?(@submarine, user_input)
+    else
+      puts messages[:err_msg_4]
+      submarine_input
     end
   end
 
