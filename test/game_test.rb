@@ -28,12 +28,11 @@ class Gametest < Minitest::Test
   end
 
   def test_valid_cruiser_input
-    assert_equal true, @game.valid_cruiser_input?(["A1", "A2", "A3"])
+
   end
 
   def test_menu_options
     # assert_equal messages[:err_msg_1], @game.menu_options("w")
-    # assert_equal @game.start, @game.menu_options("p")
   end
 
   def test_valid_input

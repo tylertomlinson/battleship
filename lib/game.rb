@@ -81,7 +81,6 @@ class Game
     turn
   end
 
-
   def turn
     puts messages[:msg_8]
     @computer_board.render
@@ -113,20 +112,12 @@ class Game
   def valid_cruiser_input?(user_input)
     while !@user_board.valid_placement?(@cruiser, user_input)
       puts messages[:err_msg_4]
-      # cruiser_input
       cruiser_input
     end
-    # if @user_board.valid_placement?(@cruiser, user_input)
-    #   true
-    # else
-    #   puts messages[:err_msg_4]
-    #   cruiser_input
-    # end
   end
 
   def valid_submarine_input?(user_input)
-    if @user_board.valid_placement?(@submarine, user_input)
-    else
+    while !@user_board.valid_placement?(@submarine, user_input)
       puts messages[:err_msg_4]
       submarine_input
     end
