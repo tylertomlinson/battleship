@@ -17,7 +17,7 @@ class Gametest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_instance_of Board, @game.human_board
+    assert_instance_of Board, @game.user_board
     assert_instance_of Ship, @game.cruiser
     assert_instance_of Ship, @game.submarine
   end
