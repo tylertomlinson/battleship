@@ -4,7 +4,7 @@ Done with iteration 3 by Monday morning
   TO DO :
 
     loop ship placement for invalid inputs
-    colorize results on board when rendered 
+    colorize results on board when rendered
 
     write test for game class: will know what more to test when running Simplecov
       test main menu
@@ -17,3 +17,7 @@ Done with iteration 3 by Monday morning
 
 
     output response within string to reflect what happens to board
+
+
+    message hash... make different output hashes
+    use array to sample ai output on array with key as ai_output

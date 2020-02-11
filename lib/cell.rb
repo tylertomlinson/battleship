@@ -19,9 +19,13 @@ class Cell
     @fired_upon
   end
 
+  def ship?
+    @ship
+  end
+
   def fire_upon
     if @ship != nil
-      @ship.hit
+    @ship.hit
     end
       @fired_upon = true
   end

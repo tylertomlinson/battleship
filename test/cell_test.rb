@@ -28,6 +28,19 @@ class CellTest < Minitest::Test
     refute @cell_1.empty?
   end
 
+  def test_if_cell_contains_a_ship
+    @cell_1.place_ship(@cruiser)
+
+    assert_equal @cruiser, @cell_1.ship
+    assert @cell_1.ship?
+
+    cell_3 = Cell.new("B4")
+
+    @cell_2.place_ship(@cruiser)
+    assert_equal @cruiser, @cell_1.ship
+    refute cell_3.ship?
+  end
+
   def test_cell_can_be_fired_upon
     @cell_1.place_ship(@cruiser)
     refute @cell_1.fired_upon?

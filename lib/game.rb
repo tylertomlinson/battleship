@@ -2,7 +2,10 @@ require './lib/board'
 require './lib/cell'
 require './lib/ship'
 require './lib/player'
-require_relative 'output'
+require './lib/human'
+require './lib/computer'
+
+require_relative 'output_module'
 
 class Game
   include OutputModule
@@ -15,27 +18,23 @@ class Game
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
     @user = Player.new
-    @computer = Player.new
-    @cruiser_options = [["A1", "A2", "A3"], ["C2", "C3", "C4"]].sample
-    @sub_options = [["D1", "D2"], ["A4", "B4"]].sample
+    @computer = Computer.new
   end
 
   def main_menu
     puts messages[:msg_1]
     # sleep 2
-      puts messages[:msg_2]
-      loop do
+    puts messages[:msg_2]
+    loop do
       user_input = gets.chomp
       menu_options(user_input)
     end
     start
   end
 
-
   def start
-    @computer.ship_placement(@cruiser, @cruiser_options)
-    @computer.ship_placement(@submarine, @sub_options)
-
+    @computer.computer_cruiser_placement
+    @computer.computer_submarine_placement
     puts messages[:msg_3]
     # sleep 1.5
     puts messages[:msg_4]
@@ -80,36 +79,24 @@ class Game
     @user_board.place(@submarine, user_input)
     puts @user_board.render(true)
     @user_board.place(@submarine, user_input)
-    #board should render here with cruiser and submarine placed on whatever
-    #coordinates were passed in
     turn
   end
 
   def turn
     puts messages[:msg_8]
-    @computer_board.render
+    puts @computer_board.render
     puts messages[:msg_9]
-    @user_board.render(true)
-    #this should display the computers board, but not its
-    #ships
-    puts @user_board.render
-    puts messages[:msg_9]
-    #this should display the players board with its ships
     puts @user_board.render(true)
     puts  messages[:msg_10]
-    shot_coordinate = gets.chomp.upcase
-    @user.take_turn(shot_coordinate)
-    guess = @computer.take_turn
-    # need to use render method and have feedback display what the shot did
-    puts "#{(guess)}"
-    puts "#{(coordinate)}"
-    #this until should check if shot_coordinate is a rendered cell
-    until valid_input?(shot_coordinate)
-    puts messages[:err_msg_3]
-      shot_coordinate = gets.chomp.upcase
-    end
-    puts "Your shot on #{shot_coordinate} was a miss."
-    puts "My shot on #{computer_shot_coordinate} was a miss"
+    user_guess = [] << gets.chomp.upcase
+    @user.valid_guess?(user_guess)
+    @user.take_turn(user_guess)
+    @computer.computer_take_turn
+
+    # until @user.valid_guess?(user_guess)
+    #   puts messages[:err_msg_3]
+    #   user_guess = [] << gets.chomp.upcase
+    # end
     turn
   end
 
@@ -138,7 +125,7 @@ class Game
       puts messages[:ai_msg_6]
       Process.exit!(true)
     else
-    puts messages[:err_msg_1]
+      puts messages[:err_msg_1]
     end
   end
 
@@ -148,6 +135,3 @@ class Game
     return "You ended the game" if end_game
   end
 end
-
-#valid input is breaking
-#need to loop over placing ship
