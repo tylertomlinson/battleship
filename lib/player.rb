@@ -1,21 +1,25 @@
 class Player
-    attr_accessor :your_board, :computer_board
+    attr_accessor :board
 
   def initialize
-    @your_board = Board.new
-    @computer_board = Board.new
+    @board = Board.new
   end
 
   def valid_ship_placement(ship, coordinates)
-    @your_board.valid_placement?(ship, coordinates)
+    @board.valid_placement?(ship, coordinates)
   end
 
   def ship_placement(ship, coordinates)
     valid_ship_placement(ship, coordinates)
-    coordinates.each {|cell| @your_board.cells[cell].place_ship(ship)}
+    coordinates.each {|cell| @board.cells[cell].place_ship(ship)}
   end
 
   def take_turn(coordinate)
-    @computer_board.cells[coordinate[0]].fire_upon
+    require "pry"; binding.pry
+    @board.cells[coordinate[0]].fire_upon
+  end
+
+  def valid_guess?(coordinate)
+      @board.valid_coordinate?(coordinate) && @board.cells[coordinate].fired_upon?
   end
 end
