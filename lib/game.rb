@@ -77,8 +77,6 @@ class Game
     user_input = gets.chomp
     user_input = sanitized_input(user_input)
     valid_submarine_input?(user_input)
-    @user_board.valid_placement?(@submarine, user_input)
-
     @user_board.place(@submarine, user_input)
     puts @user_board.render(true)
     @user_board.place(@submarine, user_input)
@@ -99,7 +97,6 @@ class Game
     #this should display the players board with its ships
     puts @user_board.render(true)
     puts  messages[:msg_10]
-
     shot_coordinate = gets.chomp.upcase
     @user.take_turn(shot_coordinate)
     guess = @computer.take_turn
@@ -117,7 +114,7 @@ class Game
   end
 
   def sanitized_input(user_input)
-    user_input = user_input.upcase.strip.gsub(" ", "").scan(/../)
+    user_input = user_input.upcase.squeeze.strip.gsub(" ", "").scan(/../)
   end
 
   def valid_cruiser_input?(user_input)
