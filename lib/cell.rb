@@ -23,7 +23,6 @@ class Cell
     @ship
   end
 
-  #why can't I refactor without having hit no method on Nil class?
   def fire_upon
     if @ship != nil
     @ship.hit
