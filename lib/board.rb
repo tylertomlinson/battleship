@@ -35,7 +35,7 @@ class Board
   end
 
   def ships_cannot_overlap?(coordinates)
-    coordinates.all? { |coordinate| @cells.key?(coordinate) == @cells[coordinate].empty? }
+    coordinates.all? { |coordinate| @cells.key?(coordinate) && @cells[coordinate].empty? }
   end
 
   def consecutive?(coordinates)
