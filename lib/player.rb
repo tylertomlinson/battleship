@@ -15,7 +15,6 @@ class Player
   end
 
   def take_turn(coordinate)
-    require "pry"; binding.pry
     @board.cells[coordinate[0]].fire_upon
   end
 
