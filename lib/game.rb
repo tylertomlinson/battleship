@@ -24,8 +24,8 @@ class Game
   def main_menu
     puts messages[:msg_1]
     # sleep 2
-      puts messages[:msg_2]
-      loop do
+    puts messages[:msg_2]
+    loop do
       user_input = gets.chomp
       menu_options(user_input)
     end
@@ -125,7 +125,7 @@ class Game
       puts messages[:ai_msg_6]
       Process.exit!(true)
     else
-    puts messages[:err_msg_1]
+      puts messages[:err_msg_1]
     end
   end
 
@@ -134,6 +134,4 @@ class Game
     return "I won!" if health(@player_board) == 0
     return "You ended the game" if end_game
   end
-
-
 end
