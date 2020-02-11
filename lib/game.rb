@@ -76,8 +76,6 @@ class Game
     user_input = gets.chomp
     user_input = sanitized_input(user_input)
     valid_submarine_input?(user_input)
-    @user_board.valid_placement?(@submarine, user_input)
-
     @user_board.place(@submarine, user_input)
     puts @user_board.render(true)
     @user_board.place(@submarine, user_input)
@@ -103,7 +101,7 @@ class Game
   end
 
   def sanitized_input(user_input)
-    user_input = user_input.upcase.strip.gsub(" ", "").scan(/../)
+    user_input = user_input.upcase.squeeze.strip.gsub(" ", "").scan(/../)
   end
 
   def valid_cruiser_input?(user_input)
