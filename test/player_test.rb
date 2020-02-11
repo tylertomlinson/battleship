@@ -22,11 +22,11 @@ class Test < Minitest::Test
   end
 
   def test_player_has_own_board_and_opponent_board
-    assert_instance_of Board , @player1.your_board
-    assert_instance_of Board, @player1.computer_board
+    assert_instance_of Board , @player1.board
+    assert_instance_of Board, @player1.board
 
-    assert_instance_of Board, @player2.your_board
-    assert_instance_of Board, @player2.computer_board
+    assert_instance_of Board, @player2.board
+    assert_instance_of Board, @player2.board
   end
 
   def test_user_has_entered_valid_coordinates
@@ -49,12 +49,12 @@ class Test < Minitest::Test
     @player1.valid_ship_placement(@ship, @coordinates)
     @player1.ship_placement(@ship, @coordinates)
 
-    assert @player1.your_board.render(true).include?("S")
+    assert @player1.board.render(true).include?("S")
   end
 
   def test_player_can_take_turn
     @player1.take_turn(["A1"])
 
-    assert @player1.computer_board.cells["A1"].fired_upon?
+    assert @player1.board.cells["A1"].fired_upon?
   end
 end
