@@ -1,23 +1,19 @@
-GOAL:
-Done with iteration 3 by Monday morning
 
-  TO DO :
+  message hash... make different output hashes
+  use array to sample ai output on array with key as ai_output
 
-    loop ship placement for invalid inputs
-    colorize results on board when rendered
-
-    write test for game class: will know what more to test when running Simplecov
-      test main menu
-      test board renders for computer and player
-      test start method
-      test input method
-      test turn method
-      test shot coordinate is valid and renders H, X, S ||   test computer can output different responses per results
-      test end game method
+  render board with output from shot
+  output of shot is told
+  end game
 
 
-    output response within string to reflect what happens to board
+  rename methods on game class
 
-
-    message hash... make different output hashes
-    use array to sample ai output on array with key as ai_output
+RED GREEN REFACTOR
+RED GREEN REFACTOR
+RED GREEN REFACTOR
+RED GREEN REFACTOR
+RED GREEN REFACTOR
+RED GREEN REFACTOR
+RED GREEN REFACTOR
+RED GREEN REFACTOR

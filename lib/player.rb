@@ -1,9 +1,8 @@
 class Player
-    attr_accessor :board
 
-  def initialize
-    @board = Board.new
-  end
+  # def initialize
+  #   @board = Board.new
+  # end
 
   def valid_ship_placement(ship, coordinates)
     @board.valid_placement?(ship, coordinates)
@@ -14,11 +13,11 @@ class Player
     coordinates.each {|cell| @board.cells[cell].place_ship(ship)}
   end
 
-  def take_turn(coordinate)
-    @board.cells[coordinate[0]].fire_upon
+  def take_turn(coordinate, computer_board)
+    computer_board.cells[coordinate[0]].fire_upon
   end
 
-  def valid_guess?(coordinate)
-      @board.valid_coordinate?(coordinate) && @board.cells[coordinate].fired_upon?
+  def valid_guess?(coordinate, computer_board)
+    computer_board.valid_coordinate?(coordinate[0]) && !computer_board.cells[coordinate[0]].fired_upon?
   end
 end
