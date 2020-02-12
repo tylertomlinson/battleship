@@ -2,9 +2,7 @@ require './lib/board'
 require './lib/cell'
 require './lib/ship'
 require './lib/player'
-require './lib/human'
 require './lib/computer'
-
 require_relative 'output_module'
 
 class Game
