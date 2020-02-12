@@ -3,7 +3,6 @@ require './lib/cell'
 require './lib/ship'
 require './lib/player'
 require './lib/computer'
-
 require_relative 'output_module'
 
 class Game
