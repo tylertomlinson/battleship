@@ -22,8 +22,14 @@ class Game
   end
 
   def main_menu
+    line
+    line
+    print_welcome_start
+    blinking
+    line
+    nap_time
     puts messages[:welcome]
-    # sleep 2
+    blinking
     puts messages[:play_quit]
     loop do
       user_input = gets.chomp
@@ -35,29 +41,43 @@ class Game
   def start
     @computer.computer_cruiser_placement(@computer_board)
     @computer.computer_submarine_placement(@computer_board)
-    puts messages[:comp_layout1]
+    line
+    opening_message_1
+    line
     resting
-    puts messages[:comp_layout2]
+    opening_message_2
+    line
     resting
-    puts messages[:user_layout]
+    opening_message_3
+    line
     resting
     cruiser_coordinates
+    line
   end
 
   def turn
+    computer_board
+    player_board
     until game_over? do
-    boards
-    puts  messages[:msg_10]
+    nap_time
+    puts  messages[:coord_input]
     user_guess = [] << gets.chomp.upcase
     until @user.valid_guess?(user_guess, @computer_board)
-      puts messages[:err_msg_3]
+      sample_invalid_messages
       user_guess = [] << gets.chomp.upcase
     end
     @user.take_turn(user_guess, @computer_board)
     comp_guess = @player_board.cells.keys.sample
     @computer.take_turn(@player_board, comp_guess)
+    print_slowly_dots
+    blinking
+    line
+    computer_board
     player_feedback(user_guess)
+    line
+    player_board
     computer_feedback
+    line
     end
   end
 
@@ -66,22 +86,15 @@ class Game
         puts "I WON!"
         sleep 2
         Process.exit!(true)
-      return  true
+      return true
       end
       if @computer.ships.all? { |ship| ship.sunk? }
         puts "YOU WON!"
         sleep 2
         Process.exit!(true)
-      return  true
+      return true
       end
     false
-  end
-
-  def boards
-    puts messages[:comp_board]
-    puts @computer_board.render
-    puts messages[:user_board]
-    puts @player_board.render(true)
   end
 
   def menu_options(user_input)
