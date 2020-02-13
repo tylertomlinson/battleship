@@ -3,14 +3,15 @@ module GameValidationModule
   def valid_cruiser_input?(user_input)
     while !@player_board.valid_placement?(@cruiser, user_input)
       nap_time
-      puts error_messages[:invalid_coord1]
+      sample_cruiser_messages
       cruiser_input
     end
   end
 
   def cruiser_coordinates
     blinking
-    puts messages[:cruiser_coord]
+    opening_message_4
+    line
     cruiser_input
   end
 
@@ -20,13 +21,17 @@ module GameValidationModule
     valid_cruiser_input?(user_input)
     @player_board.valid_placement?(@cruiser, user_input)
     @player_board.place(@cruiser, user_input)
-    puts @player_board.render(true)
+    print_lines
+    line
+    player_board
     submarine_coordinates
   end
 
   def submarine_coordinates
-    blinking
-    puts messages[:sub_coord]
+    nap_time
+    line
+    opening_message_5
+    line
     submarine_input
   end
 
@@ -35,15 +40,23 @@ module GameValidationModule
     user_input = sanitized_input(user_input)
     valid_submarine_input?(user_input)
     @player_board.place(@submarine, user_input)
-    puts @player_board.render(true)
+    print_lines
+    line
+    player_board
+    line
     @player_board.place(@submarine, user_input)
+    new_window
+    blinking
+    puts messages[:compressing_data]
+    print_slowly
+    game_time
     turn
   end
 
   def valid_submarine_input?(user_input)
     while !@player_board.valid_placement?(@submarine, user_input)
       nap_time
-      puts error_messages[:invalid_coord2]
+      sample_submarine_messages
       submarine_input
     end
   end
