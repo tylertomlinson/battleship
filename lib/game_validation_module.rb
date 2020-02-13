@@ -7,7 +7,7 @@ module GameValidationModule
       cruiser_input
     end
   end
-
+  
   def cruiser_coordinates
     blinking
     opening_message_4
