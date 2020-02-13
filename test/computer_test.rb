@@ -31,7 +31,8 @@ class ComputerTest < Minitest::Test
   end
 
   def test_computer_takes_random_turn
-    @computer.take_turn(@player_board)
+    comp_guess = @player_board.cells.keys.sample
+    @computer.take_turn(@player_board, comp_guess)
 
     assert @player_board.render.include?("M")
     refute @player_board.render.include?("H")
