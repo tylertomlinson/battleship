@@ -1,9 +1,10 @@
 class Player
-    attr_reader :cruiser, :submarine
+    attr_reader :cruiser, :submarine, :board
 
   def initialize
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
+    @board = Board.new
   end
 
   def ships
