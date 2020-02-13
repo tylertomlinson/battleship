@@ -1,6 +1,5 @@
-require_relative 'player'
 
-class Computer < Player
+class Computer
   attr_reader :cruiser, :cruiser_options, :submarine, :submarine_options, :shot_guesses
 
   def initialize
@@ -9,12 +8,12 @@ class Computer < Player
     @submarine = Ship.new("Submarine", 2)
     @submarine_options = [["D1", "D2"], ["A4", "B4"]].sample
     @shot_guesses = []
-    super
   end
 
   def ships
     @ships = [@cruiser, @submarine]
   end
+
   def computer_cruiser_placement(computer_board)
     @cruiser_options.each {|cell| computer_board.cells[cell].place_ship(@cruiser)}
   end
