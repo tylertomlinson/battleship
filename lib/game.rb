@@ -41,12 +41,11 @@ class Game
     # sleep 1.5
     cruiser_coordinates
   end
+  # until @player.all_ships_sunk? || @computer.all_ships_sunk? do
 
   def turn
-    puts messages[:msg_8]
-    puts @computer_board.render
-    puts messages[:msg_9]
-    puts @player_board.render(true)
+    until game_over? do
+    boards
     puts  messages[:msg_10]
     user_guess = [] << gets.chomp.upcase
     until @user.valid_guess?(user_guess, @computer_board)
@@ -54,10 +53,35 @@ class Game
       user_guess = [] << gets.chomp.upcase
     end
     @user.take_turn(user_guess, @computer_board)
-    @computer.take_turn(@player_board)
+    comp_guess = @player_board.cells.keys.sample
+    @computer.take_turn(@player_board, comp_guess)
     player_feedback(user_guess)
     computer_feedback
-    turn
+    end
+  end
+
+  def game_over?
+      if @user.ships.all? { |ship| ship.sunk? }
+        puts "I WON!"
+        sleep 2
+        Process.exit!(true)
+      return  true
+      end
+      if @computer.ships.all? { |ship| ship.sunk? }
+        puts "YOU WON!"
+        sleep 2
+        Process.exit!(true)
+      return  true
+      end
+    false
+  end
+
+
+  def boards
+    puts messages[:msg_8]
+    puts @computer_board.render
+    puts messages[:msg_9]
+    puts @player_board.render(true)
   end
 
   def menu_options(user_input)
@@ -82,19 +106,13 @@ class Game
   end
 
   def computer_feedback
-    if @player_board.cells[@computer.computer_shot_coordinate(@player_board)].render == "M"
-      puts "My shot on #{@computer.computer_shot_coordinate(@player_board)} was a miss!"
-    elsif @player_board.cells[@computer.computer_shot_coordinate(@player_board)].render == "H"
-      puts "My shot on #{@computer.computer_shot_coordinate(@player_board)} was a hit!"
-    elsif @player_board.cells[@computer.computer_shot_coordinate(@player_board)].render == "X"
-      puts "My shot on #{@computer.computer_shot_coordinate(@player_board)} sunk your battleship!!"
+    if @player_board.cells[@computer.shot_guesses.last].render == "M"
+      puts "My shot on #{@computer.shot_guesses.last} was a miss!"
+    elsif @player_board.cells[@computer.shot_guesses.last].render == "H"
+      puts "My shot on #{@computer.shot_guesses.last} was a hit!"
+    elsif @player_board.cells[@computer.shot_guesses.last].render == "X"
+      puts "My shot on #{@computer.shot_guesses.last} sunk your battleship!!"
     end
-  end
-
-  def end_game
-    return "You won!" if health(@computer.board) == 0
-    return "I won!" if health(@user.board) == 0
-    return "You ended the game" if end_game
   end
 
   def sanitized_input(user_input)

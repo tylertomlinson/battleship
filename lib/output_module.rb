@@ -15,6 +15,13 @@ module OutputModule
     color.green(font_type(font).write(text))
   end
 
+  def print_slowly
+    "...........".split(//).each do |c|
+      sleep 0.4
+      print c
+    end
+  end
+
   def messages
     {
       msg_1: "\n Welcome to \n#{huge_text("doom","BATTLESHIP")}\n",
@@ -35,6 +42,7 @@ module OutputModule
       msg_16: "My shot on  sunk your !",
       msg_17: "You won!",
       msg_18: "I won!",
+      msg_19: "    #{color.blue("GAMETIME")}",
       err_msg_1: "Invalid input please enter #{color.green("(P)")} or #{color.red("(Q)")}\n",
       err_msg_2: "Those are invalid coordinates. Please try        again:\n",
       err_msg_3: "Please enter a valid coordinate:\n",

@@ -1,8 +1,14 @@
 class Player
+    attr_reader :cruiser, :submarine
 
-  # def initialize
-  #   @board = Board.new
-  # end
+  def initialize
+    @cruiser = Ship.new("Cruiser", 3)
+    @submarine = Ship.new("Submarine", 2)
+  end
+
+  def ships
+    @ships = [@cruiser, @submarine]
+  end
 
   def valid_ship_placement(ship, coordinates)
     @board.valid_placement?(ship, coordinates)

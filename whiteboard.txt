@@ -9,6 +9,8 @@
 
   rename methods on game class
 
+  fix commas on input coordinates
+
 RED GREEN REFACTOR
 RED GREEN REFACTOR
 RED GREEN REFACTOR
