@@ -1,0 +1,21 @@
+
+  message hash... make different output hashes
+  use array to sample ai output on array with key as ai_output
+
+  render board with output from shot
+  output of shot is told
+  end game
+
+
+  rename methods on game class
+
+  fix commas on input coordinates
+
+RED GREEN REFACTOR
+RED GREEN REFACTOR
+RED GREEN REFACTOR
+RED GREEN REFACTOR
+RED GREEN REFACTOR
+RED GREEN REFACTOR
+RED GREEN REFACTOR
+RED GREEN REFACTOR
