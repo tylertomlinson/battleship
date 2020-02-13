@@ -59,41 +59,41 @@ class Game
     computer_board
     player_board
     until game_over? do
-    nap_time
-    puts  messages[:coord_input]
-    user_guess = [] << gets.chomp.upcase
-    until @user.valid_guess?(user_guess, @computer_board)
-      sample_invalid_messages
+      nap_time
+      puts  messages[:coord_input]
       user_guess = [] << gets.chomp.upcase
-    end
-    @user.take_turn(user_guess, @computer_board)
-    comp_guess = @player_board.cells.keys.sample
-    @computer.take_turn(@player_board, comp_guess)
-    print_slowly_dots
-    blinking
-    line
-    computer_board
-    player_feedback(user_guess)
-    line
-    player_board
-    computer_feedback
-    line
+      until @user.valid_guess?(user_guess, @computer_board)
+        sample_invalid_messages
+        user_guess = [] << gets.chomp.upcase
+      end
+      @user.take_turn(user_guess, @computer_board)
+      comp_guess = @player_board.cells.keys.sample
+      @computer.take_turn(@player_board, comp_guess)
+      print_slowly_dots
+      blinking
+      line
+      computer_board
+      player_feedback(user_guess)
+      line
+      player_board
+      computer_feedback
+      line
     end
   end
 
   def game_over?
-      if @user.ships.all? { |ship| ship.sunk? }
-        puts "I WON!"
-        sleep 2
-        Process.exit!(true)
+    if @user.ships.all? { |ship| ship.sunk? }
+      puts "I WON!"
+      sleep 2
+      Process.exit!(true)
       return true
-      end
-      if @computer.ships.all? { |ship| ship.sunk? }
-        puts "YOU WON!"
-        sleep 2
-        Process.exit!(true)
+    end
+    if @computer.ships.all? { |ship| ship.sunk? }
+      puts "YOU WON!"
+      sleep 2
+      Process.exit!(true)
       return true
-      end
+    end
     false
   end
 
