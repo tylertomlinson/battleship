@@ -152,7 +152,6 @@ module OutputModule
     puts miss_defense_messages[miss_defense_messages.keys.sample]
   end
 
-
   def hit_defense_messages
     {
       hit1: "They're heating up!",
@@ -199,8 +198,8 @@ module OutputModule
 
   def invalid_placement_cruiser_messages
     {
-  invalid_coord1: "Its 3 coordinates... How hard can this be. Enter 3 valid coordinates:",
-  invalid_coord2: "Are you even looking at the board? Those are invalid coordinates. Lets try this again:\n"
+      invalid_coord1: "Its 3 coordinates... How hard can this be. Enter 3 valid coordinates:",
+      invalid_coord2: "Are you even looking at the board? Those are invalid coordinates. Lets try this again:\n"
     }
   end
 
@@ -210,8 +209,8 @@ module OutputModule
 
   def invalid_placement_submarine_messages
     {
-  invalid_coord1: "1 and 2. How hard can this be. Enter 2 valid coordinates:",
-  invalid_coord2: "I dont have all day. Enter just two coordinates:\n"
+      invalid_coord1: "1 and 2. How hard can this be. Enter 2 valid coordinates:",
+      invalid_coord2: "I dont have all day. Enter just two coordinates:\n"
     }
   end
 
@@ -261,12 +260,12 @@ module OutputModule
   end
 
   def player_board
-      puts messages[:user_board]
-      puts color.bright_white(@player_board.render(true))
+    puts messages[:user_board]
+    puts color.bright_white(@player_board.render(true))
   end
 
-    def computer_board
+  def computer_board
     puts messages[:comp_board]
     puts color.bright_white(@computer_board.render)
-    end
+  end
 end
