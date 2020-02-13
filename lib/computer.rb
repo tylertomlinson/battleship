@@ -22,11 +22,6 @@ class Computer
     @submarine_options.each {|cell| computer_board.cells[cell].place_ship(@submarine)}
   end
 
-  # def computer_guess(player_board)
-  #   player_board.cells.keys.sample
-  #
-  # end
-
   def take_turn(player_board, comp_guess)
     until !@shot_guesses.include?(comp_guess)
       comp_guess = player_board.cells.keys.sample
@@ -34,11 +29,4 @@ class Computer
     player_board.cells[comp_guess].fire_upon
     @shot_guesses << comp_guess
   end
-
-  # def take_turn(player_board)
-  #   computer_shot_coordinate(player_board)
-  #   player_board.cells[computer_shot_coordinate(player_board)].fire_upon
-  #   @shots << computer_
-  #   computer_shot_coordinate(player_board)
-  # end
 end
